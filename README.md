@@ -1,6 +1,6 @@
 # Backend & Security Portfolio
 > Personal resume projects. Focusing on **Java Web Development, Business Architecture, and Basic Security Practices**.
-> 后端开发方向（校招）个人作品集。注重扎实的业务架构设计，良好的代码规范，并具备基础的安全防御意识。
+> 后端开发方向个人作品集。注重扎实的业务架构设计，良好的代码规范，并具备基础的安全防御意识。
 
 ## 💼 Business Application & Architecture
 *核心业务与架构：展现扎实的后端开发基本功与复杂业务处理能力*
@@ -18,10 +18,19 @@ Tech Stack: SpringBoot, MyBatis, MySQL, Vue3, Element Plus
 **Distributed Short Link Service｜分布式短链接跳转服务**
 Tech Stack: Java17, SpringBoot3.2, MySQL8, Redis7, MyBatis-Plus
 - **高并发标识生成**：使用雪花算法 + Base62 生成短码；利用 MySQL 唯一索引兜底并发场景下的短码全局唯一。
-- **缓存与性能优化**：采用 Cache-Aside 缓存方案提升读取性能；针对性实现空值缓存与布隆过滤器（可选），有效防止缓存穿透。
+- **缓存与性能优化**：采用 Cache-Aside 缓存方案提升读取性能；针对性实现空值缓存有效防止缓存穿透。
 👉 [View Repo](https://github.com/zhang56589/swift-link-service)
 
-### 3. offline-report-service
+### 3. monitor-alert-platform
+**Business Metric Monitoring Platform｜业务指标监控告警平台**
+Tech Stack: SpringBoot, MyBatis, MySQL, Redis, Redisson, RocketMQ
+- **规则引擎与状态机**：实现告警规则 CRUD 与阈值检测，支持多指标、连续命中判定、静默窗口收敛与指标回落自动恢复。
+- **异步解耦与可靠投递**：引入 RocketMQ 解耦检测与推送链路；结合告警编号与渠道唯一键实现消费幂等，防止 MQ 重复消费导致的告警轰炸。
+- **分布式集群调度**：基于 Redisson 分布式锁保证集群环境下同一时刻仅有一个节点执行检测，避免重复告警。
+- **多渠道推送**：对接钉钉机器人（支持加签安全验证）与邮件通知，搭建前端指标看板与历史告警页面。
+👉 [View Repo](https://github.com/zhang56589/monitor-alert-platform)
+
+### 4. offline-report-service
 **Offline Report Task Service｜大数据离线报表任务服务**
 Tech Stack: SpringBoot 2.7, EasyExcel, Quartz, Redis, MySQL
 - **定时任务调度**：基于 Quartz 实现定时任务，引入 Redis 分布式锁避免集群环境下的任务重复调度。
@@ -34,7 +43,7 @@ Tech Stack: SpringBoot 2.7, EasyExcel, Quartz, Redis, MySQL
 ## 🧰 Backend Middleware & Components
 *进阶组件：展现对框架底层的探索与造轮子能力（加分项）*
 
-### 4. distributed-idempotent-starter
+### 5. distributed-idempotent-starter
 **High-Concurrency Idempotent Starter｜高并发幂等与防重放组件**
 Tech Stack: Java 17, Spring Boot 3, Spring AOP, Redis, Redisson, Lua
 - **无侵入式设计**：基于 Spring AOP 开发轻量级 Starter，业务方只需添加 `@Idempotent` 注解即可实现接口防重，解耦业务逻辑。
@@ -42,7 +51,7 @@ Tech Stack: Java 17, Spring Boot 3, Spring AOP, Redis, Redisson, Lua
 - **底层并发控制**：采用 Redis + Lua 脚本保证操作的原子性，并编写多线程测试用例模拟验证。
 👉 [View Repo](https://github.com/zhang56589/distributed-idempotent-starter)
 
-### 5. api-gateway-auth
+### 6. api-gateway-auth
 **Lightweight API Gateway & Unified Auth｜轻量级 API 网关与统一认证授权**
 Tech Stack: Java 17, Spring Cloud Gateway, JWT, Redis, MySQL
 - **统一入口鉴权**：基于 Spring Cloud Gateway 全局过滤器实现网关级鉴权，拦截伪造请求头，业务服务零侵入接入。
@@ -55,21 +64,21 @@ Tech Stack: Java 17, Spring Cloud Gateway, JWT, Redis, MySQL
 ## 🛡️ Security Practices & Legacy Systems
 *安全实践与传统底层：展现代码安全底线与框架原理解析*
 
-### 6. vuln-lab
+### 7. vuln-lab
 **Web Vulnerability Lab & Defense｜经典 Web 漏洞靶场与防御对照系统**
 Tech Stack: Java 17, Spring Boot 3, MyBatis-Plus, H2, JUnit5
 - **安全编码习惯**：深入理解 SQLi、XSS、越权、CSRF 等漏洞原理，并在项目中实践参数化查询、Jsoup 过滤等防御方案。
 - **自动化验证**：编写 MockMvc 自动化测试用例发送恶意 Payload，验证防御策略的有效性。
 👉 [View Repo](https://github.com/zhang56589/vuln-lab)
 
-### 7. game-guide-community
+### 8. game-guide-community
 **Game Strategy Sharing Platform｜游戏攻略分享社区 (Legacy SSM)**
 Tech Stack: Spring5, SpringMVC5, JdbcTemplate, MySQL8, Druid, JSP
 - **框架底层实践**：纯 XML 声明式配置，深入理解 IoC 与 AOP；解决 AOP 自调用导致拦截失效的问题。
 - **安全防护机制**：自定义 XSS、CSRF 校验 Filter，实现加盐 MD5 密码方案，搭建内容人工审核流程。
 👉 [View Repo](https://github.com/zhang56589/game-guide-community)
 
-### 8. secure-react-agent
+### 9. secure-react-agent
 **Secure Controllable ReAct Agent｜安全可控 ReAct 智能体**
 Tech Stack: Python, pytest
 - 从零实现 ReAct 推理主循环，了解大模型工具调用协议；内置文件路径穿越防护。
